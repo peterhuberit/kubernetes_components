@@ -1,0 +1,33 @@
+# ClusterIP type service example
+# run: kubectl apply -f ClusterIp.yml
+# test:
+# kubectl run curl-clusterip --image=alpine -i --tty --rm
+# > apk add curl
+# > curl clusterip
+# > curl clusterip.default.svc.cluster.local
+# > curl <CLUSTER-IP-of-the-service>
+#
+apiVersion: v1
+kind: Service
+metadata:
+  name: clusterip
+spec:
+  type: ClusterIP
+  ports:
+    - targetPort: 80
+      port: 80
+  selector:
+    app: nginx
+    purpose: template
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+    app: nginx
+    purpose: template
+spec:
+  containers:
+    - image: nginx
+      name: nginx
