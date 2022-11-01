@@ -1,0 +1,23 @@
+# Namespace example
+# run: kubectl apply -f Namespace.yml
+# test:
+# kubectl get ns
+# kubectl get pods -n ns-example
+#
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ns-example
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  namespace: ns-example
+  labels:
+    app: nginx
+    purpose: template
+spec:
+  containers:
+    - image: nginx
+      name: nginx
